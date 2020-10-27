@@ -9,9 +9,10 @@ public class Carte {
     this.valeur = valeur;
     this.couleur = couleur;
   }
-  
-  /** 
+
+  /**
    * Comparer une carte à une autre
+   * 
    * @param autre
    * @return int
    */
@@ -29,8 +30,7 @@ public class Carte {
     }
   }
 
-  
-  /** 
+  /**
    * @return String
    */
   public String toString() {

@@ -10,9 +10,9 @@ public class Joueur {
     this.points = 0;
   }
 
-  
-  /** 
+  /**
    * Tire une carte
+   * 
    * @return Carte
    */
   public Carte tirer() {
@@ -22,9 +22,9 @@ public class Joueur {
     return carteTiree;
   }
 
-  
-  /** 
-   * Savoir le joueur de cartes pour encore jouer
+  /**
+   * Savoir si le joueur a assez de cartes pour continuer de jouer
+   * 
    * @param bataille
    * @return boolean
    */
@@ -39,29 +39,29 @@ public class Joueur {
     }
   }
 
-  
-  /** 
+  /**
    * Ajouter une carte au paquet
+   * 
    * @param carte1
    */
   public void ajouter(Carte carte1, Carte carte2) {
     this.points += 1;
-    this.deck.add(carte1);
-    this.deck.add(carte2);
+    this.deck.add(this.deck.size(), carte1);
+    this.deck.add(this.deck.size(), carte2);
   }
 
-  
-  /** 
+  /**
    * Recupérer le paquet du joueur
+   * 
    * @return ArrayList<Carte>
    */
   public ArrayList<Carte> getDeck() {
     return this.deck;
   }
 
-  
-  /** 
+  /**
    * Récupérer les points
+   * 
    * @return int
    */
   public int getPoints() {

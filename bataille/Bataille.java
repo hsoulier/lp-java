@@ -49,11 +49,9 @@ public class Bataille {
 
       if (carteJ1.comparerA(carteJ2) == 1) {
         j1.ajouter(carteJ1, carteJ2);
-        // j1.ajouter(carteJ2);
 
       } else if (carteJ1.comparerA(carteJ2) == -1) {
         j2.ajouter(carteJ1, carteJ2);
-        // j2.ajouter(carteJ2);
 
       } else if (carteJ1.comparerA(carteJ2) == 0) {
         if (j1.possedeAssez(true) && j2.possedeAssez(true)) {
