@@ -59,6 +59,7 @@ public class Bataille {
               new ArrayList<Carte>(Arrays.asList(carteJ2, j2.tirer(), j2.tirer())));
         }
       }
+
       match = j1.possedeAssez(false) && j2.possedeAssez(false);
     }
   }
