@@ -1,4 +1,4 @@
-package lpw.hippolyte;
+package lpw.hippolyte.entity;
 
 abstract class Entity {
     protected int lp;
@@ -10,12 +10,12 @@ abstract class Entity {
         this.att = att;
         this.damage = damage;
     }
+
     public void getHurt(int att) {
         this.lp -= att;
     }
+
     public void attackEntity(Entity target, int att) {
         target.getHurt(att);
     }
-
-
 }
