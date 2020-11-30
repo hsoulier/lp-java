@@ -6,10 +6,11 @@ abstract class Entity {
     protected int damage;
     protected int[] position;
 
-    public Entity(int lp, int att, int damage) {
+    public Entity(int lp, int att, int[] position) {
         this.lp = lp;
         this.att = att;
-        this.damage = damage;
+        this.damage = 0;
+        this.position = position;
     }
 
     public void getHurt(int att) {
@@ -19,4 +20,9 @@ abstract class Entity {
     public void attackEntity(Entity target, int att) {
         target.getHurt(att);
     }
+
+    public int[] getPosition() {
+        return this.position;
+    }
+
 }

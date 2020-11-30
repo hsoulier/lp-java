@@ -1,66 +1,77 @@
 package lpw.hippolyte;
 
+import lpw.hippolyte.entity.*;
+import lpw.hippolyte.entity.races.Warrior;
+
 import java.util.*;
 
 public class MapGame {
-    final int WIDTH = 16;
-    final int HEIGHT = 8;
-    private int[] posPlayer = {1, 1};
-    private int[] oldPosPlayer = {1, 1};
-    private String[][] map = new String[HEIGHT][WIDTH];
+    final int ROWS = 10;
+    final int COLS = 20;
+    final String emptyCell = "   ";
+    private final String[][] map = new String[ROWS][COLS];
+    private final ArrayList<int[]> listEntitiesPosition = new ArrayList<>();
 
-    public MapGame() {
+    public MapGame(Warrior player, Obstacle obstacle, Monster monster) {
+        this.listEntitiesPosition.add(player.getPosition());
+        this.listEntitiesPosition.add(obstacle.getPosition());
+        this.listEntitiesPosition.add(monster.getPosition());
         generateMap();
     }
 
     public void generateMap() {
-        for (int y = 0; y < HEIGHT; y++) {
-            for (int x = 0; x < WIDTH; x++) {
-                boolean borders = y == 0 || x == 0 || x == WIDTH - 1 || y == HEIGHT - 1;
-                if (borders) {
-                    map[y][x] = ".";
-                } else if ((x == posPlayer[0] && y == posPlayer[1])) {
-                    map[y][x] = "X";
+        for (int row = 0; row < map.length; row++) {
+            for (int col = 0; col < map[row].length; col++) {
+                if (row == 0 || col == 0 || col == COLS - 1 || row == ROWS - 1) {
+                    map[row][col] = "...";
                 } else {
-                    map[y][x] = " ";
+                    map[row][col] = emptyCell;
                 }
             }
         }
-        if (!checkForValue("X")) {
-            map[oldPosPlayer[1]][oldPosPlayer[0]] = "X";
-            posPlayer = oldPosPlayer;
+        AddEntities();
+    }
+
+    private void AddEntities() {
+        int y;
+        int x;
+        for (int i = 0; i < listEntitiesPosition.size(); i++) {
+            String entity;
+            switch (i) {
+                case 0 -> entity = " X ";
+                case 1 -> entity = " O ";
+                default -> entity = " M ";
+            }
+
+            x = listEntitiesPosition.get(i)[0];
+            y = listEntitiesPosition.get(i)[1];
+            map[x][y] = entity;
         }
+
         printMap();
     }
 
+    public void updateEntities(String direction) {
+        int[] playerPos = listEntitiesPosition.get(0);
+        map[playerPos[0]][playerPos[1]] = emptyCell;
+        switch (direction) {
+            case "z" -> playerPos[0] = ((playerPos[0] - 1) > 0) ? playerPos[0] - 1 : playerPos[0];
+            case "s" -> playerPos[0] = ((playerPos[0] + 2) < ROWS) ? playerPos[0] + 1 : playerPos[0];
+            case "q" -> playerPos[1] = ((playerPos[1] - 1) > 0) ? playerPos[1] - 1 : playerPos[1];
+            default -> playerPos[1] = ((playerPos[1] + 2) < COLS) ? playerPos[1] + 1 : playerPos[1];
+        }
+
+        listEntitiesPosition.set(0, playerPos);
+        AddEntities();
+    }
+
     private void printMap() {
-        for (int y = 0; y < HEIGHT; y++) {
-            for (int x = 0; x < WIDTH; x++) {
-                System.out.print(map[y][x]);
+        for (String[] row : map) {
+            for (String cell : row) {
+                System.out.print(cell);
             }
             System.out.println();
         }
     }
-
-    public void movePlayer(String direction) {
-        direction.toLowerCase();
-        switch (direction) {
-            case "z" -> posPlayer[1]--;
-            case "s" -> posPlayer[1]++;
-            case "q" -> posPlayer[0]--;
-            default -> posPlayer[0]++;
-        }
-        generateMap();
-    }
-
-    private boolean checkForValue(String val) {
-        for (int i = 0; i < HEIGHT; i++) {
-            for (int j = 0; j < WIDTH; j++) {
-                if (map[i][j].equals(val)) return true;
-            }
-        }
-        return false;
-    }
-
 
 }

@@ -1,13 +1,40 @@
 package lpw.hippolyte;
 
+import lpw.hippolyte.entity.Monster;
+import lpw.hippolyte.entity.Obstacle;
+import lpw.hippolyte.entity.Player;
+import lpw.hippolyte.entity.races.Warrior;
+
+import javax.swing.text.html.parser.Entity;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         boolean quit = false;
+        Warrior player = new Warrior();
+        Obstacle obstacle = new Obstacle();
+        Monster monster = new Monster();
+
+        printRules();
+
+        MapGame map = new MapGame(player, obstacle, monster);
+        while (!quit) {
+            Scanner inputDirection = new Scanner(System.in);
+            System.out.print("Se déplacer avec ZQSD (p pour quitter) : ");
+            String direction = inputDirection.nextLine();
+            if (!direction.equals("p")) {
+                map.updateEntities(direction);
+            } else {
+                quit = true;
+            }
+        }
 
 
+    }
+
+
+    public static void printRules() {
         System.out.println("**** Mini-RPG Game ****\n *** Règles");
         System.out.println("→ Lisibilité de la carte");
         System.out.println("- \"X\" désigne le joueur");
@@ -17,19 +44,6 @@ public class Main {
         System.out.println("\t Z\n   Q S D");
         System.out.println("Puis appuyer sur Entrée pour valider");
         System.out.println("Pour quitter appuyer sur la touche p \n\n\n\n");
-
-        MapGame map = new MapGame();
-        while (!quit) {
-            Scanner inputDirection = new Scanner(System.in);
-            System.out.print("Se déplacer avec ZQSD (p pour quitter) : ");
-            String direction = inputDirection.nextLine();
-            if (!direction.equals("p")) {
-                map.movePlayer(direction);
-            } else {
-                quit = true;
-            }
-        }
-
-
     }
+
 }
