@@ -4,6 +4,7 @@ abstract class Entity {
     protected int lp;
     protected int att;
     protected int damage;
+    protected int[] position;
 
     public Entity(int lp, int att, int damage) {
         this.lp = lp;
