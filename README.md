@@ -13,3 +13,4 @@ Enseignants référents :
 
 - [Projet de Bataille](./bataille/)
 - [Lecteur de fichiers texte](./lecteur)
+- [Mini RPG](./mini-rpg)
