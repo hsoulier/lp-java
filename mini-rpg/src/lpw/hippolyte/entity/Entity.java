@@ -1,5 +1,7 @@
 package lpw.hippolyte.entity;
 
+import lpw.hippolyte.entity.races.Warrior;
+
 abstract class Entity {
     protected int lp;
     protected int att;
@@ -13,11 +15,11 @@ abstract class Entity {
         this.position = position;
     }
 
-    public void getHurt(int att) {
-        this.lp -= att;
-    }
+    public void getHurt(int att) {  this.lp -= att; }
 
-    public void attackEntity(Entity target, int att) {
+    public boolean isDead() {   return !(this.lp > 0); }
+
+    public void attack(Enemy target, int att) {
         target.getHurt(att);
     }
 
@@ -25,4 +27,7 @@ abstract class Entity {
         return this.position;
     }
 
+    public abstract int getLife();
+
+    public abstract void attack(Entity target);
 }
