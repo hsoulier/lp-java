@@ -1,11 +1,11 @@
-package lpw.hippolyte;
+package lpw.hippolyte.arcane;
 
 import java.util.TreeMap;
 
 public class Arcane {
-    private final String number;
-    private final String name;
-    private final String image;
+    private final int number;
+    private String name;
+    private String image;
     private String description;
     private static final TreeMap<Integer, String> treemap = new TreeMap<>();
 
@@ -26,9 +26,8 @@ public class Arcane {
 
     }
 
-
     public Arcane(int number, String name, String description, String image) {
-        this.number = integerToRoman(number);
+        this.number = number;
         this.name = name;
         this.description = description;
         this.image = image;
@@ -39,9 +38,19 @@ public class Arcane {
         return this.description;
     }
 
+    public void changeAttribute(String newContent, String attr) {
+        switch (attr) {
+            case "image" -> this.image = newContent;
+            case "name" -> this.name = newContent;
+            case "description" -> this.description = newContent;
+        }
+    }
+
     public boolean delete() {
         return true;
     }
+
+    public String getName() { return this.name;}
 
     private static String integerToRoman(int number) {
         int l = treemap.floorKey(number);
@@ -52,6 +61,6 @@ public class Arcane {
     }
 
     public String toString() {
-        return String.format("Vous avez pioché l'Arcane n°%s, %s", this.number, this.name);
+        return String.format("Arcane n°%s, %s", integerToRoman(this.number), this.name);
     }
 }

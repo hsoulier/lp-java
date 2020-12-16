@@ -1,0 +1,18 @@
+{
+  "data":
+    [
+      {
+        "id": 1,
+        "name": "Le Bateleur",
+        "description": "Le Bateleur est vif. Sa maîtrise des éléments matériels lui confèrent une intelligence certaine. Il sait convaincre son entourage par son habileté et sa force de persuasion. Il représente également la joie de vivre. Placé au début du cycle, c'est un personnage jeune et dynamique qui compte sur ses compétences et son savoir faire pour avancer.\nLe Bateleur peut également apparaître comme un imposteur. Sa maîtrise des éléments matériels en fait le parfait charlatan. Il est rusé et peut masquer son incompétence afin de faire bonne figure. Il est opportuniste et n'hésite pas à tromper son entourage s'il peut en tirer du bénéfice.",
+        "img": "src/assets/1-bateleur.jpg"
+      },
+      {
+        "id": 2,
+        "name": "La Papesse",
+        "description": "\tLa Papesse est signe de sagesse et de connaissance. Elle représente une femme mature qui paraît rassurance et reposée. La Papesse est le symbole de la confiance. Elle est l'interprète des choses occultes et rassure par son calme et sa tranquillité.\nLa Papesse peut évoquer une forme de paresse. Une attitude négative qui peut se traduire par l'oisiveté et l'indifférence. La Papesse peut se cacher derrière une attitude conformiste et être hostile dans certaines situations, notamment lorsqu'il s'agit de problématiques financières.",
+        "img": "src/assets/1-bateleur.jpg"
+      }
+    ]
+
+}
