@@ -1,7 +1,7 @@
 package lpw.hippolyte;
 
 import lpw.hippolyte.entity.*;
-import lpw.hippolyte.entity.races.Warrior;
+import lpw.hippolyte.entity.races.*;
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ public class MapGame {
     final String emptyCell = "   ";
     private final Obstacle obstacle;
     private final Monster monster;
-    private final Warrior player;
+    private final Player player;
     private boolean isFight = false;
     private final String[][] map = new String[ROWS][COLS];
     private final ArrayList<int[]> listEntitiesPosition = new ArrayList<>();
@@ -39,6 +39,7 @@ public class MapGame {
         AddEntities();
     }
 
+    
     private void AddEntities() {
         int y;
         int x;

@@ -1,11 +1,6 @@
 package lpw.hippolyte;
-
-import lpw.hippolyte.entity.Monster;
-import lpw.hippolyte.entity.Obstacle;
-import lpw.hippolyte.entity.Player;
-import lpw.hippolyte.entity.races.Warrior;
-
-import javax.swing.text.html.parser.Entity;
+import lpw.hippolyte.entity.*;
+import lpw.hippolyte.entity.races.*;
 import java.util.Scanner;
 
 public class Main {
