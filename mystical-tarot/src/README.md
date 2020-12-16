@@ -9,9 +9,9 @@
     - [X] Ajouter une description à une nouvelle Arcane
         - [X] Créer un formulaire de création de Arcane
         - [X] Instancier une nouvelle Arcane dans le deck au submit du formulaire
-    - [] Supprimer une carte
-        - [] Créer un forulaire pour choisir une carte à supprimer
-        - [] Supprimer l'instance de l'Arcane au submit de la suppression
+    - [X] Supprimer une carte
+        - [X] Créer un forulaire pour choisir une carte à supprimer
+        - [X] Supprimer l'instance de l'Arcane au submit de la suppression
 
 **3.** Action supplémentaire
     - [] Mise à jour d'une Arcane
