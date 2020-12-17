@@ -7,21 +7,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 
 public class MainWindow {
 
     private static ArrayList<Arcane> deck;
     private static JFrame window;
-    private static JPanel viewArcanes, editArcanePanel;
-    private static JLabel addArcane, nameLab, descLab, imgLab, delLab;
+    private static JPanel leftPanel, rightPanel, viewPanel, mainPanel, addPanel, delPanel, editPanel;
+    private static JLabel addArcane, nameLab, descLab, imgLab, delLab, allArcanesLab;
     private static JTextField nameInput, imgInput;
     private static JTextArea descInput;
     private static JButton addArcaneBtn, delArcaneBtn;
     private static JComboBox<Arcane> delInput;
-    private static GridBagConstraints cFrame;
     private static GridBagConstraints c;
+    private static ArrayList<JPanel> viewsArcanes;
 
     public static void main(String[] args) {
         deck = new ArrayList<>();
@@ -31,56 +30,95 @@ public class MainWindow {
         deck.add(new Arcane(4, "L'ancien", "description du magicien", "./img.png"));
 
 
-        // Init Window
+        // ** Init Window
         window = new JFrame("Tarot Divinatoire");
         window.setSize(1200, 600);
-        window.setLayout(new GridBagLayout());
-        viewArcanes = new JPanel(new BorderLayout());
-        editArcanePanel = new JPanel(new GridBagLayout());
-        cFrame = new GridBagConstraints();
         c = new GridBagConstraints();
 
-        // Init JLabel
+        // ** Init JPanel
+        // General JPanel
+        mainPanel = new JPanel();
+        leftPanel = new JPanel(new GridBagLayout());
+        viewPanel = new JPanel(new GridLayout(6, 4));
+        rightPanel = new JPanel(new GridBagLayout());
+        addPanel = new JPanel(new GridLayout(8,1));
+        delPanel = new JPanel(new GridBagLayout());
+        editPanel = new JPanel(new GridBagLayout());
+
+
+        JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.WRAP_TAB_LAYOUT);
+
+
+        // JPanel Arcane
+        for (int i = 0; i < deck.size(); i++) {
+            viewPanel.add(new JButton("Test " + i));
+        }
+
+        // ** Init JLabel
         addArcane = new JLabel("Créer une Arcane".toUpperCase(Locale.ROOT));
         nameLab = new JLabel("Nom de l'Arcane");
         descLab = new JLabel("Description");
         imgLab = new JLabel("Chemin de l'image de l'Arcane");
         delLab = new JLabel("Supprimer une Arcane".toUpperCase(Locale.ROOT));
+        allArcanesLab = new JLabel("Les Arcanes".toUpperCase(Locale.ROOT));
 
-        // Init JFormComponent
+        // ** Init JFormComponent
         nameInput = new JTextField();
         descInput = new JTextArea();
         imgInput = new JTextField();
-//        JComboBox delInput = new JComboBox(deck.toArray());
         delInput = renderComboBox();
-        // Init JButton
+
+        // ** Init JButton
         addArcaneBtn = new JButton("Ajouter l'Arcane");
         delArcaneBtn = new JButton("Supprimer l'Arcane");
 
-        // Display JComponents
+        // ** Display JComponents
+        c.insets = new Insets(20, 10, 20, 10);
         c.fill = GridBagConstraints.BOTH;
-        c.insets = new Insets(40, 10, 20, 0);
-        c.gridwidth = 2;
+
+        // Left Panel
+        allArcanesLab.setFont(new Font(allArcanesLab.getName(), Font.PLAIN, 20));
+        leftPanel.add(allArcanesLab, displayComponent(0, 0));
+        leftPanel.add(viewPanel, displayComponent(0, 1));
+
+        // Right Panel
+        rightPanel.add(tabs);
+
+        c.gridwidth = 1;
         addArcane.setFont(new Font(addArcane.getName(), Font.PLAIN, 20));
         delLab.setFont(new Font(delLab.getName(), Font.PLAIN, 20));
-        editArcanePanel.add(addArcane, displayComponent(0, 0));
+        addPanel.add(addArcane, displayComponent(0, 0));
+        c.insets = new Insets(0, 10, 5, 10);
+//        addPanel.add(nameLab, displayComponent(0, 1));
+//        addPanel.add(nameInput, displayComponent(0, 2));
+//        addPanel.add(descLab, displayComponent(0, 3));
+//        addPanel.add(descInput, displayComponent(0, 4));
+//        addPanel.add(imgLab, displayComponent(0, 5));
+//        addPanel.add(imgInput, displayComponent(0, 6));
+//        addPanel.add(addArcaneBtn, displayComponent(0, 7));
+        addPanel.add(nameLab);
+        addPanel.add(nameInput);
+        addPanel.add(descLab);
+        addPanel.add(descInput);
+        addPanel.add(imgLab);
+        addPanel.add(imgInput);
+        addPanel.add(addArcaneBtn);
 
-        c.insets = new Insets(0, 10, 5, 0);
-        editArcanePanel.add(nameLab, displayComponent(0, 1));
-        editArcanePanel.add(nameInput, displayComponent(0, 2));
-        editArcanePanel.add(descLab, displayComponent(0, 3));
-        editArcanePanel.add(descInput, displayComponent(0, 4));
-        editArcanePanel.add(imgLab, displayComponent(0, 5));
-        editArcanePanel.add(imgInput, displayComponent(0, 6));
-        editArcanePanel.add(addArcaneBtn, displayComponent(0, 7));
         c.insets = new Insets(20, 10, 20, 0);
-        editArcanePanel.add(delLab, displayComponent(0, 8));
-        c.insets = new Insets(0, 10, 5, 0);
-        c.gridwidth = 1;
-        editArcanePanel.add(delInput, displayComponent(0, 9));
-        editArcanePanel.add(delArcaneBtn, displayComponent(1, 9));
+        delPanel.add(delLab, displayComponent(0, 8));
+        c.insets = new Insets(0, 10, 5, 10);
+        delPanel.add(delInput, displayComponent(0, 9));
+        delPanel.add(delArcaneBtn, displayComponent(0, 10));
 
-        // Listeners
+        tabs.addTab("Ajouter une Arcane", addPanel);
+        tabs.addTab("Supprimer une Arcane", delPanel);
+        tabs.addTab("Editer une Arcane", editPanel);
+
+        // Main Panel
+        mainPanel.add(leftPanel);
+        mainPanel.add(rightPanel);
+
+        // ** Listeners
         addArcaneBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -114,17 +152,22 @@ public class MainWindow {
             }
         });
 
-        // Styling
+        // ** Styling
         descInput.setBorder(BorderFactory.createLineBorder(Color.black));
         nameInput.setBorder(BorderFactory.createLineBorder(Color.black));
         imgInput.setBorder(BorderFactory.createLineBorder(Color.black));
+        mainPanel.setBackground(new Color(35, 35, 35));
 
-        // Display Window
+        // ** Display Window
+        window.add(mainPanel);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.add(viewArcanes);
-        window.add(editArcanePanel);
         window.setLocationRelativeTo(null);
+        window.pack();
+        System.out.println(mainPanel.getWidth());
+        rightPanel.setPreferredSize(new Dimension(mainPanel.getWidth() / 2, mainPanel.getHeight()));
         window.setVisible(true);
+
+
     }
 
     private static JComboBox<Arcane> renderComboBox() {

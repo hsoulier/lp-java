@@ -1,20 +1,23 @@
 # Tarot Divinatoire
 
-
 ## Déroulé
 
 **1.** Architecture du projet (diagramme UML)
 
 **2.** Action de base
     - [X] Ajouter une description à une nouvelle Arcane
-        - [X] Créer un formulaire de création de Arcane
-        - [X] Instancier une nouvelle Arcane dans le deck au submit du formulaire
+        - [X] Créer un form de création de Arcane
+        - [X] Instancier new Arcane in deck -> submit
     - [X] Supprimer une carte
-        - [X] Créer un forulaire pour choisir une carte à supprimer
-        - [X] Supprimer l'instance de l'Arcane au submit de la suppression
+        - [X] Créer un form pr choose Arcane
+        - [X] Deletet instance Arcane -> submit
 
 **3.** Action supplémentaire
     - [] Mise à jour d'une Arcane
-    - [] Consulter l'ensemble des Arcanes
-    - [] Recherhe d'Arcane avec min 2 critères différents (numéro || nom)
-    - [] Ajouter une image correspondante à une Arcane
+        - [] Form de selection Arcane + change Attribute
+    - [] See all Arcanes
+        - [] display all Arcanes
+            - [] JPanel each Arcane
+            - [] display name + num (+img)
+    - [] Search Arcane min 2 critères != (numéro || nom)
+    - [] Add new img Arcane
