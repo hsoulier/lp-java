@@ -14,11 +14,11 @@ public class MainWindow {
     private static ArrayList<Arcane> deck;
     private static JFrame window;
     private static JPanel leftPanel, rightPanel, viewPanel, mainPanel, addPanel, delPanel, editPanel;
-    private static JLabel addArcane, nameLab, descLab, imgLab, delLab, allArcanesLab;
+    private static JLabel addArcane, nameLab, descLab, imgLab, delLab, allArcanesLab, editLab;
     private static JTextField nameInput, imgInput;
     private static JTextArea descInput;
-    private static JButton addArcaneBtn, delArcaneBtn;
-    private static JComboBox<Arcane> delInput;
+    private static JButton addArcaneBtn, delArcaneBtn, chooseEditBtn, editBtn;
+    private static JComboBox<Arcane> selectInput;
     private static GridBagConstraints c;
     private static ArrayList<JPanel> viewsArcanes;
 
@@ -41,9 +41,9 @@ public class MainWindow {
         leftPanel = new JPanel(new GridBagLayout());
         viewPanel = new JPanel(new GridLayout(6, 4));
         rightPanel = new JPanel(new GridBagLayout());
-        addPanel = new JPanel(new GridLayout(8,1));
-        delPanel = new JPanel(new GridBagLayout());
-        editPanel = new JPanel(new GridBagLayout());
+        addPanel = new JPanel(new GridLayout(8, 1, 10, 10));
+        delPanel = new JPanel(new GridLayout(5, 1, 10, 10));
+        editPanel = new JPanel(new GridLayout(11, 1, 10, 10));
 
 
         JTabbedPane tabs = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.WRAP_TAB_LAYOUT);
@@ -61,16 +61,23 @@ public class MainWindow {
         imgLab = new JLabel("Chemin de l'image de l'Arcane");
         delLab = new JLabel("Supprimer une Arcane".toUpperCase(Locale.ROOT));
         allArcanesLab = new JLabel("Les Arcanes".toUpperCase(Locale.ROOT));
+        editLab = new JLabel("Editer une Arcane".toUpperCase(Locale.ROOT));
 
         // ** Init JFormComponent
         nameInput = new JTextField();
         descInput = new JTextArea();
         imgInput = new JTextField();
-        delInput = renderComboBox();
+        selectInput = renderComboBox();
+        JTextField  = new JTextField();
+        descInput = new JTextArea();
+        imgInput = new JTextField();
+        selectInput = renderComboBox();
 
         // ** Init JButton
         addArcaneBtn = new JButton("Ajouter l'Arcane");
         delArcaneBtn = new JButton("Supprimer l'Arcane");
+        chooseEditBtn = new JButton("Chosir l'Arcane");
+        editBtn = new JButton("Editer l'Arcane");
 
         // ** Display JComponents
         c.insets = new Insets(20, 10, 20, 10);
@@ -83,19 +90,11 @@ public class MainWindow {
 
         // Right Panel
         rightPanel.add(tabs);
-
         c.gridwidth = 1;
         addArcane.setFont(new Font(addArcane.getName(), Font.PLAIN, 20));
         delLab.setFont(new Font(delLab.getName(), Font.PLAIN, 20));
-        addPanel.add(addArcane, displayComponent(0, 0));
-        c.insets = new Insets(0, 10, 5, 10);
-//        addPanel.add(nameLab, displayComponent(0, 1));
-//        addPanel.add(nameInput, displayComponent(0, 2));
-//        addPanel.add(descLab, displayComponent(0, 3));
-//        addPanel.add(descInput, displayComponent(0, 4));
-//        addPanel.add(imgLab, displayComponent(0, 5));
-//        addPanel.add(imgInput, displayComponent(0, 6));
-//        addPanel.add(addArcaneBtn, displayComponent(0, 7));
+        editLab.setFont(new Font(editLab.getName(), Font.PLAIN, 20));
+        addPanel.add(addArcane);
         addPanel.add(nameLab);
         addPanel.add(nameInput);
         addPanel.add(descLab);
@@ -104,15 +103,25 @@ public class MainWindow {
         addPanel.add(imgInput);
         addPanel.add(addArcaneBtn);
 
-        c.insets = new Insets(20, 10, 20, 0);
-        delPanel.add(delLab, displayComponent(0, 8));
-        c.insets = new Insets(0, 10, 5, 10);
-        delPanel.add(delInput, displayComponent(0, 9));
-        delPanel.add(delArcaneBtn, displayComponent(0, 10));
+        delPanel.add(delLab);
+        delPanel.add(selectInput);
+        delPanel.add(delArcaneBtn);
 
-        tabs.addTab("Ajouter une Arcane", addPanel);
-        tabs.addTab("Supprimer une Arcane", delPanel);
-        tabs.addTab("Editer une Arcane", editPanel);
+        editPanel.add(editLab);
+        editPanel.add(selectInput);
+        editPanel.add(new JComboBox<String>(new String[]{"Nom", "Description", "Image"}));
+        editPanel.add(chooseEditBtn);
+        editPanel.add(nameLab);
+        editPanel.add(nameInput);
+        editPanel.add(descLab);
+        editPanel.add(descInput);
+        editPanel.add(imgLab);
+        editPanel.add(imgInput);
+        editPanel.add(editBtn);
+
+        tabs.addTab("Ajouter", addPanel);
+        tabs.addTab("Supprimer", delPanel);
+        tabs.addTab("Editer", editPanel);
 
         // Main Panel
         mainPanel.add(leftPanel);
@@ -124,10 +133,10 @@ public class MainWindow {
             public void actionPerformed(ActionEvent e) {
                 deck.add(new Arcane(deck.size() + 1, nameInput.getText(), descInput.getText(), imgInput.getText()));
                 System.out.println(deck.get(deck.size() - 1));
-                if (delInput.getItemCount() != deck.size()) {
-                    delInput.removeAllItems();
+                if (selectInput.getItemCount() != deck.size()) {
+                    selectInput.removeAllItems();
                     for (Arcane arcane : deck) {
-                        delInput.addItem(arcane);
+                        selectInput.addItem(arcane);
                     }
                 }
             }
@@ -135,17 +144,17 @@ public class MainWindow {
         delArcaneBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String data = "";
-                if (delInput.getSelectedIndex() != -1) {
-                    data = "" + delInput.getItemAt
-                            (delInput.getSelectedIndex());
+                if (selectInput.getSelectedIndex() != -1) {
+                    data = "" + selectInput.getItemAt
+                            (selectInput.getSelectedIndex());
                 }
                 for (int i = 0; i < deck.size(); i++) {
                     if (data.split(", ")[1].equals(deck.get(i).getName())) deck.remove(deck.get(i));
                 }
-                if (delInput.getItemCount() != deck.size()) {
-                    delInput.removeAllItems();
+                if (selectInput.getItemCount() != deck.size()) {
+                    selectInput.removeAllItems();
                     for (Arcane arcane : deck) {
-                        delInput.addItem(arcane);
+                        selectInput.addItem(arcane);
                     }
                 }
                 System.out.println(deck);
@@ -163,8 +172,9 @@ public class MainWindow {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLocationRelativeTo(null);
         window.pack();
+        window.revalidate();
+        window.repaint();
         System.out.println(mainPanel.getWidth());
-        rightPanel.setPreferredSize(new Dimension(mainPanel.getWidth() / 2, mainPanel.getHeight()));
         window.setVisible(true);
 
 
